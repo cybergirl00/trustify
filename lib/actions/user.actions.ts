@@ -1,26 +1,30 @@
-// // creating user to the database
-// 'use server'
+// creating user to the database
+'use server'
+import { client } from "../client"
 
-// import { client } from "../client"
+export const createUser = async (user: User) => {
+    try {
+        const createdUser = client.user.create({
+            data: {
+                name: user.name,
+                email: user.email,
+                clerkId: user.clerkId,
+                username: user.username,
+                imageUrl: user.imageUrl,
+                first_name: user.first_name,
+                last_name: user.last_name,
+                phone_number: user.phone_number || '',  // Provide null if missing
+                accountNumber: user.accountNumber || '',  // Provide null if missing
+                balance: user.balance || '',
+                bankName: user.bankName || '',  // Provide null if missing
+            },
 
-// export const createUser = async (user: User) => {
-//     try {
-//         const createdUser = client.user.create({
-//             data: {
-//                 name: user.name,
-//                 email: user.email,
-//                 clerkId: user.clerkId,
-//                 username: user.username,
-//                 imageUrl: user.imageUrl,
-//                 first_name: user.first_name,
-//                 last_name: user.last_name,
-//             }
-//         })
+        })
 
-//         return JSON.parse(JSON.stringify(createdUser))
+        return JSON.parse(JSON.stringify(createdUser))
 
-//     } catch (error) {
-//         // todo add toast
-//         console.log(error)
-//     }
-// }
+    } catch (error) {
+        // todo add toast
+        console.log(error)
+    }
+}
