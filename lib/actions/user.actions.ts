@@ -12,9 +12,9 @@ export const createUser = async (user: User) => {
               imageUrl: user.imageUrl || '',
               first_name: user.first_name || '',
               last_name: user.last_name || '',
-              phone_number: user.phone_number || '',
-              accountNumber: user.accountNumber || '',
-              balance: user.balance || 0,  // Handle balance correctly
+              // phone_number: user.phone_number || '',
+              // accountNumber: user.accountNumber || '',
+              // balance: user.balance || 0,  // Handle balance correctly
             }
           });
                      return JSON.parse(JSON.stringify(newUser));          
