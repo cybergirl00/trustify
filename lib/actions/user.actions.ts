@@ -19,9 +19,11 @@ export const createUser = async (user: User) => {
                 bankName: user.bankName || '',  // Provide null if missing
             },
 
-        })
+        }).then((response) => (
+            console.log(response.clerkId)
+        ))
 
-        return JSON.parse(JSON.stringify(createdUser))
+    return JSON.parse(JSON.stringify(createdUser))
 
     } catch (error) {
         // todo add toast
