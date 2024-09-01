@@ -15,7 +15,6 @@ export const createUser = async (user: User) => {
               phone_number: user.phone_number || '',
               accountNumber: user.accountNumber || '',
               balance: user.balance || 0,  // Handle balance correctly
-              bankName: user.bankName || '',
             }
           });
                      return JSON.parse(JSON.stringify(newUser));          
