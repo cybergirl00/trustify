@@ -2,7 +2,7 @@ import { prisma } from "../client"
 
 export const createUser = async (user: User) => {
     try {
-        await prisma.$connect()
+        // await prisma.$connect()
         const newUser = await prisma.user.create({
             data: {
                 name: user.name,
