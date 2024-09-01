@@ -1,4 +1,3 @@
-'use server'
 import { client } from "../client"
 
 export const createUser = async (user: User) => {
