@@ -8,14 +8,14 @@ export const createUser = async (user: User) => {
               name: user.name,
               email: user.email,
               clerkId: user.clerkId,
-              username: user.username || undefined,
-              imageUrl: user.imageUrl || undefined,
-              first_name: user.first_name || undefined,
-              last_name: user.last_name || undefined,
-              phone_number: user.phone_number || undefined,
-              accountNumber: user.accountNumber || undefined,
-              balance: user.balance !== undefined ? user.balance : undefined,  // Handle balance correctly
-              bankName: user.bankName || undefined,
+              ...(user.username && { username: user.username }),
+              ...(user.imageUrl && { imageUrl: user.imageUrl }),
+              ...(user.first_name && { first_name: user.first_name }),
+              ...(user.last_name && { last_name: user.last_name }),
+              ...(user.phone_number && { phone_number: user.phone_number }),
+              ...(user.accountNumber && { accountNumber: user.accountNumber }),
+              ...(user.balance && { balance: user.balance }),
+              ...(user.bankName && { bankName: user.bankName }),
             }
           });
           return createdUser;          
