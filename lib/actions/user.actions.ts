@@ -14,7 +14,7 @@ export const createUser = async (user: User) => {
                 last_name: user.last_name,
                 phone_number: user.phone_number || '',  // Provide null if missing
                 accountNumber: user.accountNumber || '',  // Provide null if missing
-                balance: user.balance || '',
+                balance: user.balance !== undefined ? user.balance : null,
                 bankName: user.bankName || '',  // Provide null if missing
             },
 

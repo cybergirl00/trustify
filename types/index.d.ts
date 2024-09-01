@@ -4,7 +4,7 @@ declare type User = {
     phone_number?: string | null,
     username: string,
     clerkId: string,
-    balance?: string,
+    balance?: number,
     accountNumber?: string | null, 
     bankName?: string | null,
     first_name: string,
