@@ -9,7 +9,9 @@ export const createUser = async (user: User) => {
                 email: user.email,
                 username: user.username || '',
                 clerkId: user.clerkId,
-                imageUrl: user.imageUrl
+                imageUrl: user.imageUrl,
+                last_name: user.last_name,
+                first_name: user.first_name
             }
         })
         return newUser; // Return the created user object
