@@ -12,10 +12,10 @@ export const createUser = async (user: User) => {
               imageUrl: user.imageUrl || '',
               first_name: user.first_name || '',
               last_name: user.last_name || '',
-              phone_number: user.phone_number || null,
-              accountNumber: user.accountNumber || undefined,
-              balance: user.balance !== undefined ? user.balance : undefined,  // Handle balance correctly
-              bankName: user.bankName || undefined,
+              phone_number: user.phone_number || '',
+              accountNumber: user.accountNumber || '',
+              balance: user.balance || 0,  // Handle balance correctly
+              bankName: user.bankName || '',
             }
           });
                      return JSON.parse(JSON.stringify(newUser));          
