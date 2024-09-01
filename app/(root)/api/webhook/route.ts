@@ -59,7 +59,7 @@ export async function POST(req: Request) {
     const user = {
       clerkId: id,
       email: email_addresses[0].email_address,
-      name: `${first_name} ${last_name}`,
+      name: `${first_name || ''} ${last_name || ''}`.trim(),
       imageUrl: image_url,
       first_name: first_name!,
       last_name: last_name!,
@@ -69,12 +69,12 @@ export async function POST(req: Request) {
     const newUser = await createUser(user)
 
     if(newUser) {
-      await clerkClient.users.updateUserMetadata(id, {
-        publicMetadata: {
-          userId: newUser._id
-        }
-      })
-    }
+        await clerkClient.users.updateUserMetadata(id, {
+          publicMetadata: {
+            userId: newUser.id
+          }
+        })
+      }
 
     return NextResponse.json({ message: 'User created successfully', user: newUser })
 
