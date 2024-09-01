@@ -18,7 +18,7 @@ export const createUser = async (user: User) => {
               bankName: user.bankName || undefined,
             }
           });
-          
+          return createdUser;          
 
     } catch (error) {
         // todo add toast
