@@ -1,10 +1,9 @@
-// creating user to the database
 'use server'
 import { client } from "../client"
 
 export const createUser = async (user: User) => {
     try {
-        const createdUser = client.user.create({
+        const createdUser = await client.user.create({
             data: {
                 name: user.name,
                 email: user.email,
