@@ -8,7 +8,7 @@ export const createUser = async (user: User) => {
               name: user.name,
               email: user.email,
               clerkId: user.clerkId,
-              username: user.username || undefined,
+              username: user.username || '',
               imageUrl: user.imageUrl || undefined,
               first_name: user.first_name || undefined,
               last_name: user.last_name || undefined,
