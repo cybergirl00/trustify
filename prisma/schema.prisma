@@ -41,7 +41,7 @@ model User {
   clerkId       String         @unique
   accountNumber String?         @unique
   balance       String?    
-  bankName String    
+  bankName String?    
 
   transactions  Transaction[]  @relation(name: "UserTransactions")
 
