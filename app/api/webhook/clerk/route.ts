@@ -55,28 +55,29 @@ export async function POST(req: Request) {
 
   if(eventType === 'user.created') {
 
-    const { id, email_addresses, image_url, first_name, last_name, username} = evt.data
-    const user = {
-      clerkId: id,
-      email: email_addresses[0].email_address,
-      name: `${first_name || ''} ${last_name || ''}`.trim(),
-      imageUrl: image_url,
-      first_name: first_name!,
-      last_name: last_name!,
-      username: username!
-    }
+    alert('user created')
+    // const { id, email_addresses, image_url, first_name, last_name, username} = evt.data
+    // const user = {
+    //   clerkId: id,
+    //   email: email_addresses[0].email_address,
+    //   name: `${first_name || ''} ${last_name || ''}`.trim(),
+    //   imageUrl: image_url,
+    //   first_name: first_name!,
+    //   last_name: last_name!,
+    //   username: username!
+    // }
 
-    const newUser = await createUser(user)
+    // const newUser = await createUser(user)
 
-    if(newUser) {
-        await clerkClient.users.updateUserMetadata(id, {
-          publicMetadata: {
-            userId: newUser.id
-          }
-        })
-      }
+    // if(newUser) {
+    //     await clerkClient.users.updateUserMetadata(id, {
+    //       publicMetadata: {
+    //         userId: newUser.id,
+    //       }
+    //     })
+    //   }
 
-    return NextResponse.json({ message: 'User created successfully', user: newUser })
+    // return NextResponse.json({ message: 'User created successfully', user: newUser })
 
   }
 
