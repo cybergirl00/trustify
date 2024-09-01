@@ -5,24 +5,20 @@ export const createUser = async (user: User) => {
     try {
         const createdUser = await client.user.create({
             data: {
-                name: user.name,
-                email: user.email,
-                clerkId: user.clerkId,
-                username: user.username,
-                imageUrl: user.imageUrl,
-                first_name: user.first_name,
-                last_name: user.last_name,
-                phone_number: user.phone_number || '',  // Provide null if missing
-                accountNumber: user.accountNumber || '',  // Provide null if missing
-                balance: user.balance !== undefined ? user.balance : null,
-                bankName: user.bankName || '',  // Provide null if missing
-            },
-
-        }).then((response) => (
-            console.log(response.clerkId)
-        ))
-
-    return JSON.parse(JSON.stringify(createdUser))
+              name: user.name,
+              email: user.email,
+              clerkId: user.clerkId,
+              username: user.username || undefined,
+              imageUrl: user.imageUrl || undefined,
+              first_name: user.first_name || undefined,
+              last_name: user.last_name || undefined,
+              phone_number: user.phone_number || undefined,
+              accountNumber: user.accountNumber || undefined,
+              balance: user.balance !== undefined ? user.balance : undefined,  // Handle balance correctly
+              bankName: user.bankName || undefined,
+            }
+          });
+          
 
     } catch (error) {
         // todo add toast
