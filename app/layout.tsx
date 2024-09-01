@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
+import { ClerkProvider } from '@clerk/nextjs'
+import { ThemeProvider } from "@/providers/theme-provider";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -15,8 +18,33 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
+    <ClerkProvider 
+    appearance={{
+      layout: {
+        socialButtonsVariant: 'iconButton'
+      },
+      variables: {
+        colorBackground: 'white',
+        colorPrimary: '#8000FF',
+        colorText: '#8000FF',
+        colorInputBackground: '#CAB7DD',
+        colorInputText: 'white',
+            }
+    }}
+    >
+    <html lang="en" suppressHydrationWarning>
+      <body className={inter.className}>
+      <ThemeProvider
+            attribute="class"
+            defaultTheme="dark"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+          </ThemeProvider>
+
+      </body>
     </html>
+    </ClerkProvider>
   );
 }
