@@ -21,6 +21,7 @@ export const createUser = async (user: User) => {
 
     } catch (error) {
         // todo add toast
-        console.log(error)
+        console.error('Error creating user:', error);
+        throw error;
     }
 }
