@@ -12,9 +12,9 @@ export const createUser = async (user: User) => {
                 imageUrl: user.imageUrl,
                 first_name: user.first_name,
                 last_name: user.last_name,
-                phone_number: user.phone_number || '',  // Provide null if missing
-                accountNumber: user.accountNumber || '',  // Provide null if missing
-                balance: user.balance || '',
+                phone_number: user.phone_number || null,  // Provide null if missing
+                accountNumber: user.accountNumber || null,  // Provide null if missing
+                balance: user.balance || null,
                 bankName: user.bankName || '',  // Provide null if missing
             },
 
