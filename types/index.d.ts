@@ -5,10 +5,18 @@ declare type User = {
     username?: string,
     clerkId: string,
     balance?: number | null,  // number or null
-    accountNumber?: string,
+    bankAccountNumber?: string,
     bankName?: string,
     first_name?: string,
     last_name?: string,
     imageUrl?: string
   }
   
+
+
+  declare type AccountProps = {
+    accountNumber: string;
+    accountName: string;
+    bankNamw: string;
+    
+  }
