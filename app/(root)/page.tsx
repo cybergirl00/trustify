@@ -1,20 +1,17 @@
-
-import { getUser } from '@/lib/actions/user'
+import Header from '@/components/Header'
 import { auth } from '@clerk/nextjs/server'
 import { redirect } from 'next/navigation'
 
 const Dashboard = async () => {
   const { userId } = auth()
-
-  const userInfo = await getUser(userId)
   console.log(userId)
-  if(userId && userInfo === undefined) {
- redirect('/onboarding')
-  } else if(!userId) redirect('/sign-in')
+ if (!userId) redirect('/sign-in')
 
 
   return (
-    <div>{userId}</div>
+    <div>
+      <Header user={userId} />
+    </div>
   )
 }
 

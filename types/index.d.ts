@@ -1,5 +1,5 @@
 declare type User = {
-    name: string,
+    name: string | null,
     email: string,
     phone_number?: string,
     username?: string,

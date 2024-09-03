@@ -6,7 +6,13 @@ import { Button } from "@/components/ui/button"
 import { Form } from "@/components/ui/form"
 import CustomForm from "@/components/CustomForm"
 import { useUser } from '@clerk/clerk-react'
-import { createAccount } from "@/lib/actions/account"
+import { useMutation } from "convex/react"
+import { api } from "@/convex/_generated/api"
+import { useRouter } from 'next/navigation'
+import { toast } from "sonner"
+import { LoaderCircle } from 'lucide-react';
+import { useState } from "react"
+import { sendSms } from "@/lib/actions/africastalking"
 
 // Schema validation using Zod
 const formSchema = z.object({
@@ -17,6 +23,8 @@ const formSchema = z.object({
 })
 
 const Onboarding = () => {
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false)
   const { user } = useUser()
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -26,9 +34,12 @@ const Onboarding = () => {
     },
   })
 
+  const createUser = useMutation(api.user.createUser)
+
   // Define a submit handler
   const onSubmit = async (values: z.infer<typeof formSchema>) => {  
     try {
+      setIsLoading(true)
       const response = await fetch('/api/flutterwave', {
         method: 'POST',
         headers: {
@@ -41,20 +52,42 @@ const Onboarding = () => {
           firstname: user?.firstName,
           lastname: user?.lastName,
         }),
-      });
+      })
 
-      if (response.ok) {
-       
-      }  else {
+      if (!response.ok) {
         throw new Error('Network response was not ok');
-      }
+      } 
       
       const data = await response.json();
-      console.log('Form values:', data);
+      const amount = parseFloat(data?.data?.amount);
+
+
+      createUser({
+        name: user?.fullName || '',
+        email: user?.emailAddresses[0].emailAddress ?? '',
+        first_name: user?.firstName ?? '',
+        last_name: user?.lastName ?? '',
+        phone: values.phone,
+        accountNumber:  data?.data?.account_number ?? '',
+        bankName:  data?.data?.bank_name ?? '',
+        amount: data?.data?.amount ?? '',
+        clerkId: user?.id ?? '',
+        username: user?.username ?? '',
+      }).then(() => {
+      //  redirect to home page and show toast
+      // send sms to the user
+      sendSms( values.phone,
+        `Welcome to trust bank ${user?.firstName}!, your Account number is ${data?.data.account_number}, the bank name is ${data?.data?.bank_name}, your balance is ${data?.data?.amount}. You can start recieving funds to your account `
+       );
+      setIsLoading(false)
+      router.push('/')
+      toast("Congratulations!!, Your account has been created sucessfully.")
+      })
     } catch (error) {
       console.error('Error creating account:', error);
+      toast("Oops!, Error creating an account")
+      setIsLoading(false)
     }
-
 
   }
 
@@ -85,7 +118,10 @@ const Onboarding = () => {
               placeholder="Phone Number"
               disabled={false}
             />
-            <Button type="submit" className="w-full">Submit</Button>
+            <Button type="submit" className="w-full" disabled={isLoading}
+            >
+            {isLoading ? <LoaderCircle className="mr-2  h-4 w-4 animate-spin" /> : 'Submit'}
+            </Button>
           </form>
         </Form>
       </div>
